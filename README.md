@@ -1,90 +1,19 @@
-# CS340Dashboard
-CS 340 README Template
+How do you write programs that are maintainable, readable, and adaptable? Especially consider your work on the CRUD Python module from Project One, which you used to connect the dashboard widgets to the database in Project Two. What were the advantages of working in this way? How else could you use this CRUD Python module in the future?
 
+Writing maintainable, readable, and adaptable programs, especially when integrating a CRUD Python module with dashboard widgets for database interactions, highlights several advantages:
 
-Project 2 Dashboard 
-This project is a dashboard application built with Dash, a Python framework for building analytical web applications. The dashboard is designed to interact with a MongoDB database and display data in a user-friendly way.
+Maintainability: By encapsulating database operations within the CRUD module, changes to database schema or operations require adjustments in only one place. This approach simplifies maintenance, as developers can update, debug, or enhance database interactions without sifting through the entire codebase.
 
-Motivation
-The project was conceived to support the noble cause of rescue operations. Well-trained search-and-rescue dogs are invaluable assets in life-threatening situations, and finding the right candidates for training is crucial. Grazioso Salvare's mission, assisted by this software, is to optimize the selection process of rescue dogs, thereby enhancing the efficiency and success rate of rescue missions.
+Readability: A well-structured CRUD module with clear function names and documentation makes it easier for new developers or collaborators to understand how the application interacts with the database. This clarity improves the onboarding process and facilitates collaborative development.
 
-Getting Started
-1.	Dash: A Python framework for building web applications. It is used for creating the interactive dashboard.
-•	Includes dash, dash_html_components, dash_core_components, dash_table, and jupyter_dash for Jupyter Notebook integration.
-2.	Plotly: An interactive graphing library for Python. It is used for creating the charts in the dashboard.
-3.	Pandas and NumPy: Libraries for data manipulation and numerical calculations.
-4.	Matplotlib: A plotting library for creating static, interactive, and animated visualizations in Python.
-5.	Dash Leaflet: For integrating Leaflet.js maps with Dash applications.
-6.	MongoDB CRUD Module: A custom module named mongodb_crud.py for performing CRUD operations on a MongoDB database. This module is not a standard library and needs to be provided separately.
-7.	Other Utilities:
-•	os: Standard library for OS-dependent functionality.
-•	base64: Standard library for encoding binary data to Base64 strings, used here for embedding images in the dashboard.
-	
-Installation
-To install the necessary libraries, you can use pip, the Python package installer. Open your terminal or command prompt and run the following commands:
-	pip install dash jupyter-dash dash-leaflet plotly pandas numpy matplotlib
-Make sure to place the mongodb_crud.py file in your working directory or an appropriate location where Python can import it
+Adaptability: The CRUD module's abstraction allows the rest of the application to interact with the database through a consistent interface, even if the underlying database technology changes. This flexibility ensures that adapting to new requirements or technologies involves minimal disruptions to the application's core functionality.
 
-Usage
-Code Overview
-The code is divided into several sections:
-•	Imports and setup: Importing necessary modules and setting up the database connection.
-•	Dashboard layout: Defining the layout of the dashboard, including the data table, radio buttons, and charts.
-•	Callbacks: Functions that update the components of the dashboard based on user interaction.
+The CRUD module can be used universally, and adapted in different ways. Based off the current adaptation it has some specifics to this current project, but with some small updates such as changing AnimalShelter to something more generic like CRUD_module would allow it to be easily adaptable to any program. 
 
-The dashboard interacts with a MongoDB database through the AnimalShelter class, which is defined in the mongodb_crud module. The AnimalShelter class provides CRUD (Create, Read, Update, Delete) operations for the database.
+How do you approach a problem as a computer scientist? Consider how you approached the database or dashboard requirements that Grazioso Salvare requested. How did your approach to this project differ from previous assignments in other courses? What techniques or strategies would you use in the future to create databases to meet other client requests?
 
-The data table is populated with data from the MongoDB database. The data can be filtered based on the selection of the radio buttons. The filtered data is also used to update the pie chart and the geolocation chart.
+In approaching the project for Grazioso Salvare, the process was iterative and user-centric, focusing on understanding their specific needs and how the application could best serve those requirements. Unlike more straightforward assignments, this project required a blend of technical skills and creative problem-solving, ensuring the final product was not only functional but also user-friendly and aligned with Grazioso Salvare's objectives.
 
-The pie chart displays the distribution of preferred animals based on the filtered data. The geolocation chart displays the location of a selected data entry.
+What do computer scientists do, and why does it matter? How would your work on this type of project help a company, like Grazioso Salvare, to do their work better?
 
-Code Example
-radio_button_to_breeds_mapping = {
-    'OPT1': ['Labrador Retriever Mix', 'Chesapeake Bay Retriever', 'Newfoundland'],
-    'OPT2': ['German Shepherd', 'Alaskan Malamute', 'Old English Sheepdog', 'Siberian Husky', 'Rottweiler'],
-    'OPT3': ['Doberman Pinscher', 'German Shepherd', 'Golden Retriever', 'Bloodhound', 'Rottweiler'],
-}
-radio_button_to_age_upon_outcome_mapping = {
-    'OPT1': {'$gte': 26, '$lte': 156},  # 26 weeks to 156 weeks
-    'OPT2': {'$gte': 26, '$lte': 156},  # 26 weeks to 156 weeks 
-    'OPT3': {'$gte': 20, '$lte': 300},  # 20 weeks to 300 weeks
-}
-radio_button_to_sex_upon_outcome_mapping = {
-    'OPT1': ['Intact Female'],
-    'OPT2': ['Intact Male'],
-    'OPT3': ['Intact Male'],
-}
-
-@app.callback(
-    [Output('datatable-id', 'data'),
-     Output('datatable-id', 'columns')],
-    [Input('filter-options', 'value')]
-)
-def update_dashboard(filter_type):
-    try:
-        # Check which button has been pressed and set the query
-        if filter_type == 'reset':
-            query = {}  # Reset button pressed, so no filter   
-        else:
-            # Map filter_type to the preferred breeds
-            preferred_breeds = radio_button_to_breeds_mapping.get(filter_type, [])
-            age_range = radio_button_to_age_upon_outcome_mapping.get(filter_type, {})
-            preferred_sex = radio_button_to_sex_upon_outcome_mapping.get(filter_type, [])
-            query = {
-                'breed': {'$in': preferred_breeds},
-                'age_upon_outcome_in_weeks': age_range,
-                'sex_upon_outcome' : {'$in': preferred_sex}
-            }
-
-
-
-Roadmap/Features (Optional)
-Features
-•	Interactive data table with sorting, filtering, and pagination.
-•	Radio buttons for filtering data based on specific criteria.
-•	Pie chart that displays the distribution of preferred animals.
-•	Geolocation chart that displays the location of a selected data entry.
-
-Contact
-Eric Buchanan
-
+The role of a computer scientist is to solve complex problems, create systems that are efficient at processing and analyzing data, and make tools that make us more productive. To find trends and patterns, they develop algorithms, do simulations, and analyze data. In addition to creating systems for storing, managing, and supporting decision-making processes, computer scientists also create cybersecurity solutions. By combining their math, computer science, and software engineering skills, they're able to solve complex problems. Also, they can create systems to store and manage data, and support decision-making processes, as well as design and analyze data to identify trends and patterns. As well, they make sure data is protected and systems are secure by developing and maintaining cyber security solutions.
